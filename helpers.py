@@ -1,6 +1,6 @@
 import pygame
 from sprites import *
-from move import *
+from learner import *
 
 def load_background(image_file):
     image = pygame.image.load(image_file)
@@ -25,25 +25,26 @@ def keys(character,event):
             character.update_pos('DOWN')
             key_pressed = True
 
-def render_pipes(speed,timer,image_list, group):
+def render_pipes(speed, timer, scaling, image_list, group):
 
-    if timer > speed * 1000:
+    if timer > scaling * (1/speed) * 1000:
         characteristics = spawn_pipe(image_list)
-        pipe = Enemy(characteristics[0],characteristics[1], characteristics[2])
-        group.add(pipe)
-        return pipe
+        if characteristics is not None:
+            pipe = Enemy(characteristics[0],characteristics[1], characteristics[2])
+            group.add(pipe)
+            return pipe
 
 def text_to_screen(screen, text, position, color=(0,0,0)):
-    size = 50
 
+    size = 50
     pygame.font.init()
     text = str(text)
     font = pygame.font.SysFont('Arial', size)
     text = font.render(text, True, color)
     screen.blit(text, (position[0], position[1]))
 
-def update_timer(timer, speed):
-    if timer > speed * 1000:
+def update_timer(timer, speed, scaling):
+    if timer >  scaling * (1/speed) * 1000:
         return 0
     else:
         return timer
@@ -53,6 +54,7 @@ def detect_collision(pipe_list, character):
     (left_p, top_p, width_p, height_p) = first_pipe.get_rect()
     (left_c, top_c, width_c, height_c) = character.get_rect()
 
+    #Reformatting width's to corner coordinates
     width_p += left_p
     width_c += left_c
     height_p += top_p
@@ -68,7 +70,9 @@ def detect_collision(pipe_list, character):
 
 def change_score(pipe_list,score,speed,pipe_speed):
     updated_score = update_score(pipe_list,score)
-    if updated_score > score:
-        change_level(score,pipe_speed)
+
+    if updated_score is not None:
+        if updated_score > score:
+            pipe_speed = change_level(score,pipe_speed)
 
     return (updated_score,pipe_speed)

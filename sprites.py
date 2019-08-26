@@ -1,5 +1,5 @@
 import pygame
-from move import *
+from learner import *
 
 class Player(pygame.sprite.Sprite):
 
@@ -18,6 +18,9 @@ class Player(pygame.sprite.Sprite):
         position = [self.rect.x,self.rect.y]
         return position
 
+    def rotate(self,angle):
+        self.image = pygame.transform.rotate(self.image,angle)
+
     def update_pos(self, key):
         new_position = move_sprite(key, self.get_position())
         self.rect.x = new_position[0]
@@ -25,7 +28,8 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         new_position = sprite_down(self.get_position())
-        self.rect.y = new_position[1]
+        if new_position is not None:
+            self.rect.y = new_position[1]
 
 class Enemy(pygame.sprite.Sprite):
 
