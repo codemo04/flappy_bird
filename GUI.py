@@ -20,8 +20,8 @@ def main() -> None:
     timer = 0
     speed = 2
     score = 0
-    music_file = os.path.join(dir_name,"assets","sounds",get_audio())
-    game_over_sound = os.path.join(dir_name,"assets","sounds","game over.mp3")
+    game_music_file = os.path.join(dir_name,get_game_audio())
+    game_over_sound = os.path.join(dir_name,get_gameover_audio())
 
     #PYGAME INITILIZATIONS
     pygame.display.init()
@@ -36,7 +36,7 @@ def main() -> None:
     player = pygame.sprite.Group()
     pipes = pygame.sprite.Group()
     time = pygame.time.Clock()
-    pygame.mixer.music.load(music_file)
+    pygame.mixer.music.load(game_music_file)
     pygame.mixer.music.play(-1)
 
     #RENDER CHARACTER

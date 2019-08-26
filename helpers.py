@@ -2,12 +2,12 @@ import pygame
 from sprites import *
 from learner import *
 
-def load_background(image_file):
+def load_background(image_file: str) -> None:
     """Loads image file in pygame"""
     image = pygame.image.load(image_file)
     return image
 
-def is_active(event):
+def is_active(event: pygame.event) -> bool:
     """Detects if an event type is quit. Returns True or False based on whether
     the close button is being pressed"""
     if event.type == pygame.QUIT:
@@ -15,7 +15,7 @@ def is_active(event):
     else:
         return True
 
-def keys(character,event):
+def keys(character: Player,event: pygame.event) -> None:
     """Updates the position of sprite on screen depending on whether the UP or
     DOWN arrow key is pressed """
 
@@ -26,7 +26,8 @@ def keys(character,event):
         elif event.key == pygame.K_DOWN:
             character.update_pos('DOWN')
 
-def render_pipes(speed, timer, scaling, image_list, group):
+def render_pipes(speed: int, timer: float, scaling: float, image_list: list,
+    group: pygame.sprite.Group) -> Enemy:
     """Renders pipe images onto the screen. Pipe objects are created after a set
     number of milliseconds. The newly formed pipe is then added to the pipes
     group"""
@@ -38,7 +39,8 @@ def render_pipes(speed, timer, scaling, image_list, group):
             group.add(pipe)
             return pipe
 
-def text_to_screen(screen, text, position, color=(0,0,0)):
+def text_to_screen(screen: pygame.display, text: str, position: tuple,
+    color=(0,0,0)) -> None:
     """Renders text to a screen objects in a specified color and position.
     Default font color is black"""
 
@@ -49,14 +51,14 @@ def text_to_screen(screen, text, position, color=(0,0,0)):
     text = font.render(text, True, color)
     screen.blit(text, (position[0], position[1]))
 
-def update_timer(timer, speed, scaling):
+def update_timer(timer: float, speed: int, scaling: float) -> float:
     """Reset timer to 0 after a specified number of milliseconds has passed"""
     if timer >  scaling * (1/speed) * 1000:
         return 0
     else:
         return timer
 
-def detect_collision(pipe_list, character):
+def detect_collision(pipe_list: list, character: Player) -> bool:
     """Return True or False based on whether the first pipe object in the list
     of pipes is occupying the same space as the character on screen"""
 
@@ -78,7 +80,8 @@ def detect_collision(pipe_list, character):
     else:
         return False
 
-def change_score(pipe_list,score,speed,pipe_speed):
+def change_score(pipe_list: list, score: int, speed: int,
+    pipe_speed: int) -> tuple:
     """Update score depending on the number of pipes the bird has travelled past.
     Everytime the score is updated, also update the level
     """

@@ -4,7 +4,7 @@ from learner import *
 class Player(pygame.sprite.Sprite):
     """Class for the main character which is controlled by the player """
 
-    def __init__(self,image,size,start):
+    def __init__(self, image: str, size: int, start: tuple) -> None:
         """Constructor for player sprite. Inherits from pygame Sprite class"""
         super().__init__()
         self.image = pygame.image.load(image)
@@ -13,21 +13,21 @@ class Player(pygame.sprite.Sprite):
         self.rect.x  = start[0]
         self.rect.y = start[1]
 
-    def get_rect(self):
+    def get_rect(self) -> list:
         """Returns the coordinates for the rectangle bounding box around
          sprite object"""
         return self.rect
 
-    def get_position(self):
+    def get_position(self) -> list:
         """Return the x,y coordinates for the top left corner of the sprite"""
         position = [self.rect.x,self.rect.y]
         return position
 
-    def rotate(self,angle):
+    def rotate(self,angle: int) -> None:
         """Updates sprites orientations by rotating the image by angle"""
         self.image = pygame.transform.rotate(self.image,angle)
 
-    def update_pos(self, key):
+    def update_pos(self, key: str) -> None:
         """Update the position of the sprite based on whether the up or down
         key is pressed"""
         position = self.get_position()
@@ -35,7 +35,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = new_position[0]
         self.rect.y = new_position[1]
 
-    def update(self):
+    def update(self) -> None:
         """Update the sprites position on the screen"""
         new_position = sprite_down(self.get_position())
         if new_position is not None:
@@ -44,7 +44,7 @@ class Player(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
     """Class for the enemy character or object which is controlled by the player """
 
-    def __init__(self,image,size,start):
+    def __init__(self, image: str, size: int, start: int):
         """Constructor for player sprite. Inherits from pygame Sprite class"""
 
         super().__init__()
@@ -54,19 +54,19 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x  = start[0]
         self.rect.y = start[1]
 
-    def get_rect(self):
+    def get_rect(self) -> list:
         """Returns the coordinates for the rectangle bounding box around sprite
         object"""
 
         return self.rect
 
-    def get_position(self):
+    def get_position(self) -> list:
         """Return the x,y coordinates for the top left corner of the sprite"""
 
         position = [self.rect.x,self.rect.y]
         return position
 
-    def update(self,pipe_speed):
+    def update(self,pipe_speed: float) -> None:
         """Update the sprites position on the screen. Makes the enemy scroll
         across the screen"""
 
