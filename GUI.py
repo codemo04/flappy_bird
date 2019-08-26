@@ -4,7 +4,11 @@ from learner import *
 from helpers import *
 import os
 
-def main():
+def main() -> None:
+    """This is the main loop responsible for rendering a pygame window. This
+    loop also carries out all major game logic. Many learner functions are
+    called in this loop. See if you can see some of the ones you have written!"""
+
     dir_name = os.path.dirname(__file__)
     #CONSTANTS
     is_game_over = False
@@ -26,7 +30,8 @@ def main():
     caption = name_your_game()
     if caption is not None:
         pygame.display.set_caption(caption)
-    background = load_background(os.path.join(dir_name,"assets","images","background.png"))
+    background_image = get_background()
+    background = load_background(os.path.join(dir_name,background_image))
     game_over_background = load_background(os.path.join(dir_name,"assets","images","game-over.jpg"))
     player = pygame.sprite.Group()
     pipes = pygame.sprite.Group()
@@ -35,20 +40,20 @@ def main():
     pygame.mixer.music.play(-1)
 
     #RENDER CHARACTER
-    character = Player(os.path.join(dir_name,"assets","images","bird.png"),(100,100),(0,300))
+    character_image = get_character()
+    character = Player(os.path.join(dir_name,character_image),(100,100),(0,300))
     player.add(character)
 
     #MAIN GAME LOOP
     while active and not is_game_over:
-        key_pressed = False
+
         events = pygame.event.get()
 
         for event in events:
             active = is_active(event)
             keys(character,event)
 
-        if key_pressed is False:
-            player.update()
+        player.update()
 
         new_render = render_pipes(speed, timer, scaling, pipe_images, pipes)
         if new_render != None:
@@ -92,7 +97,7 @@ def main():
 
     else:
         pygame.quit()
-        #pygame.mixer.music.stop()
+
 
 if __name__ == '__main__':
     main()

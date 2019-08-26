@@ -9,8 +9,13 @@ def name_your_game():
     return(name)
 
 ### STEP TWO: LOAD A BACKGROUND IMAGE ###
-def load_background_image():
-    pass
+def get_background():
+    file_name = "assets/images/background.png"
+    return file_name
+
+def get_character():
+    file_name = "assets/images/bird.png"
+    return file_name
 
 ### STEP THREE: MOVE THE SPRITE ###
 def sprite_down(sprite_position):
@@ -21,7 +26,6 @@ def sprite_down(sprite_position):
     return sprite_position
 
 def move_sprite(key, sprite_position):
-    #print(sprite_position)
 
     if key == 'UP':
         #Checking to make sure the character doesn't go off screen
