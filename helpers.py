@@ -35,7 +35,8 @@ def render_pipes(speed: int, timer: float, scaling: float, image_list: list,
     if timer > scaling * (1/speed) * 1000:
         characteristics = spawn_pipe(image_list)
         if characteristics is not None:
-            pipe = Enemy(characteristics[0],characteristics[1], characteristics[2])
+            pipe = Enemy(characteristics[0],characteristics[1],
+                characteristics[2])
             group.add(pipe)
             return pipe
 
@@ -82,8 +83,8 @@ def detect_collision(pipe_list: list, character: Player) -> bool:
 
 def change_score(pipe_list: list, score: int, speed: int,
     pipe_speed: int) -> tuple:
-    """Update score depending on the number of pipes the bird has travelled past.
-    Everytime the score is updated, also update the level
+    """Update score depending on the number of pipes the bird has travelled
+    past. Everytime the score is updated, also update the level
     """
 
     updated_score = update_score(pipe_list,score)

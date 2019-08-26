@@ -9,12 +9,13 @@ def main() -> None:
     loop also carries out all major game logic. Many learner functions are
     called in this loop. See if you can see some of the ones you have written!"""
 
-    dir_name = os.path.dirname(__file__)
     #CONSTANTS
+    dir_name = os.path.dirname(__file__)
     is_game_over = False
     active = True
     pipe_list = []
-    pipe_images = [os.path.join(dir_name,"assets","images","pipe.png"),os.path.join(dir_name,"assets","images","pipe_upside_down.png")]
+    pipe_images = [os.path.join(dir_name,"assets/images/pipe.png"),
+        os.path.join(dir_name,"assets/images/pipe_upside_down.png")]
     scaling  = 2
     pipe_speed = 25
     timer = 0
@@ -32,7 +33,8 @@ def main() -> None:
         pygame.display.set_caption(caption)
     background_image = get_background()
     background = load_background(os.path.join(dir_name,background_image))
-    game_over_background = load_background(os.path.join(dir_name,"assets","images","game-over.jpg"))
+    game_over_background = load_background(os.path.join(dir_name,"assets",
+        "images","game-over.jpg"))
     player = pygame.sprite.Group()
     pipes = pygame.sprite.Group()
     time = pygame.time.Clock()
@@ -92,7 +94,8 @@ def main() -> None:
             for event in events:
                 active = is_active(event)
 
-            text_to_screen(screen, "Final Score is: " + str(score), (230,600),(255,255,255))
+            text_to_screen(screen, "Final Score is: " + str(score),
+                (230,600),(255,255,255))
             pygame.display.flip()
 
     else:

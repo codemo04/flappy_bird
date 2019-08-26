@@ -42,7 +42,8 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = new_position[1]
 
 class Enemy(pygame.sprite.Sprite):
-    """Class for the enemy character or object which is controlled by the player """
+    """Class for the enemy character or object which is controlled by the
+    player"""
 
     def __init__(self, image: str, size: int, start: int):
         """Constructor for player sprite. Inherits from pygame Sprite class"""
