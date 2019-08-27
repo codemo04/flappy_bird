@@ -127,7 +127,7 @@ def move_pipe(pipe_position: list, pipe_speed: float) -> list:
     pipe_position[0] -= pipe_speed
     return pipe_position
 
-### STEP SIX: CHECK FOR COLLISIONS ###
+### STEP FIVE: CHECK FOR COLLISIONS ###
 def x_intersection(rect1_left: float, rect1_right: float, rect2_left: float,
     rect2_right: float) -> bool:
     """In Scratch, we checked if two objects were touching based on color. In
@@ -165,7 +165,7 @@ def y_interection(rect1_top: float, rect1_bottom: float, rect2_top: float,
     else:
         return False
 
-### ADD ON: KEEP SCORE ###
+### STEP SIX: KEEP SCORE ###
 def update_score(pipe_list: list, score: int) -> int:
     """Let's add a scoreboard to our flappy bird game! We need to return an
     updated score based on how many pipes our character has traversed.
