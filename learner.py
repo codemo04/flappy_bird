@@ -99,16 +99,16 @@ def spawn_pipe(pipes: list) -> list:
     #Pick a random pipe image
     pipe = random.choice(pipes)
     #size = (x,y)
-    large = (100,400)
-    small = (100,300)
+    large = [100,400]
+    small = [100,300]
     #Pick a random pipe size
     size = random.choice([large, small])
 
     #If the pipe is upside down make it start on the bottom of the screen
     if pipe == "assets/images/pipe_upside_down.png":
-        start_position = (600,0)
+        start_position = [600,0]
     else:
-        start_position = (600,450)
+        start_position = [600,450]
 
     return [pipe, size, start_position]
 
