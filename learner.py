@@ -96,11 +96,11 @@ def spawn_pipe(pipes: list) -> list:
     """
     #Delete the 'pass' above. Write your code below this line
 
+    #Pick a random pipe image
+    pipe = random.choice(pipes)
     #size = (x,y)
     large = (100,400)
     small = (100,300)
-    #Pick a random pipe image
-    pipe = random.choice(pipes)
     #Pick a random pipe size
     size = random.choice([large, small])
 
