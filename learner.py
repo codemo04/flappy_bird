@@ -44,8 +44,7 @@ def sprite_down(sprite_position: list) -> list:
     it upwards. Let's focus on making the bird travel downward.
 
     In game design, we make a sprite move by specifying a new location for it to
-    travel to. This list of [x,y] coordinates to make the sprite move downwards.
-    In doing this be careful to not have the sprite go off the screen.
+    travel to. Be careful to not have the sprite go off the screen.
 
     REMINDER: In python the top left corner of the screen is point (0,0)"""
 
@@ -60,11 +59,10 @@ def move_sprite(key: str, sprite_position: list) -> list:
     on which key is pressed. In flappy bird the bird is always moving down and
     its up to the player to move it upwards. Let's focus on making the bird
     travel up if the up arrow key is pressed. If the player is pressing the up
-    arrow key, the parameter key will be 'KEY'.
+    arrow key, the parameter key will be 'UP'.
 
     In game design, we make a sprite move by specifying a new location for it to
-    travel to. This list of [x,y] coordinates to make the sprite move downwards.
-    In doing this be careful to not have the sprite go off the screen.
+    travel to. Be careful to not have the sprite go off the screen.
 
     REMINDER: In python the top left corner of the screen is point (0,0)"""
 
@@ -116,9 +114,9 @@ def spawn_pipe(pipes: list) -> list:
 
 def move_pipe(pipe_position: list, pipe_speed: float) -> list:
     """In a video game such as this one, its common to think the character is
-    moving forward. In actuality it is the background! By making the pipes move
-    from right to left across the screen it makes it appear as if the character
-    is moving.
+    moving forward. In actuality it is the background that moves!
+    By making the pipes move from right to left across the screen it makes it
+    appear as if the character is moving.
 
     Similar to making the character move up and down, update the pipes position
     pipe_speed steps. Return a list of pipe_position [x,y].
@@ -198,7 +196,8 @@ def change_level(score: int, pipe_speed: float) -> float:
     """We want our game to get harder the longer a player plays. A cool way to
     do that is make our game get faster! Increase pipe_speed based on score.
 
-    STUMPED? Whenever the score is divisible by 5 increment the speed by a 5?"""
+    STUMPED? Whenever update the pipe_speed everytime the score is divisible
+    by a certain number"""
     #Delete the 'pass' above. Write your code below this line
 
     #Everytime score incremented by 5, make level faster
