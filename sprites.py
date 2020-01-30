@@ -38,7 +38,9 @@ class Player(pygame.sprite.Sprite):
     def update(self) -> None:
         """Update the sprites position on the screen"""
         new_position = sprite_down(self.get_position())
-        if new_position is not None:
+        if new_position[1] >= 600:
+            new_position[1] = 600
+        else:
             self.rect.y = new_position[1]
 
 class Enemy(pygame.sprite.Sprite):

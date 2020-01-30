@@ -22,10 +22,13 @@ def keys(character: Player,event: pygame.event) -> None:
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_UP:
             character.update_pos('UP')
+            return True
 
         elif event.key == pygame.K_DOWN:
             character.update_pos('DOWN')
-
+            return True
+    return False
+    
 def render_pipes(speed: int, timer: float, scaling: float, image_list: list,
     group: pygame.sprite.Group) -> Enemy:
     """Renders pipe images onto the screen. Pipe objects are created after a set
@@ -35,8 +38,7 @@ def render_pipes(speed: int, timer: float, scaling: float, image_list: list,
     if timer > scaling * (1/speed) * 1000:
         characteristics = spawn_pipe(image_list)
         if characteristics is not None:
-            pipe = Enemy(characteristics[0],characteristics[1],
-                characteristics[2])
+            pipe = Enemy(characteristics[0],characteristics[1], characteristics[2])
             group.add(pipe)
             return pipe
 

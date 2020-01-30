@@ -1,6 +1,4 @@
 import pygame
-
-### ADD ANY IMPORTS BELOW THIS LINE ###
 import random
 
 ### STEP ONE: RENAME YOUR GAME ###
@@ -49,8 +47,10 @@ def sprite_down(sprite_position: list) -> list:
     REMINDER: In python the top left corner of the screen is point (0,0)"""
 
     #Delete the 'pass' above. Write your code below this line
-    if sprite_position[1] != 460:
-        sprite_position[1] += 20
+    if sprite_position[1] >= 600:
+        sprite[1] = 600
+    else:
+        sprite_position[1] = sprite_position[1] + 5
 
     return sprite_position
 
@@ -64,13 +64,12 @@ def move_sprite(key: str, sprite_position: list) -> list:
     In game design, we make a sprite move by specifying a new location for it to
     travel to. Be careful to not have the sprite go off the screen.
 
-    REMINDER: In python the top left corner of the screen is point (0,0)"""
+    REMINDER: In python the top left corner of the screen is point (0,0) and the
+    bottom right corner is (600,600)"""
 
     #Delete the 'pass' above. Write your code below this line
-    if key == 'UP':
-        #Checking to make sure the character doesn't go off screen
-        if sprite_position[1] != 0:
-            sprite_position[1] -= 50
+    if key == 'UP' and sprite_position[1] >= 0:
+        sprite_position[1] -= 100
 
     return sprite_position
 
@@ -196,8 +195,8 @@ def change_level(score: int, pipe_speed: float) -> float:
     """We want our game to get harder the longer a player plays. A cool way to
     do that is make our game get faster! Increase pipe_speed based on score.
 
-    STUMPED? Whenever update the pipe_speed everytime the score is divisible
-    by a certain number"""
+    STUMPED? Level up everytime you pass 5 pipes. Think about what your scores
+    will be divisible by."""
     #Delete the 'pass' above. Write your code below this line
 
     #Everytime score incremented by 5, make level faster

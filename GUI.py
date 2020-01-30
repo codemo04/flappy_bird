@@ -7,7 +7,8 @@ import os
 def main() -> None:
     """This is the main loop responsible for rendering a pygame window. This
     loop also carries out all major game logic. Many learner functions are
-    called in this loop. See if you can see some of the ones you have written!"""
+    called in this loop. See if you can see some of the ones you have written!
+    """
 
     #CONSTANTS
     dir_name = os.path.dirname(__file__)
@@ -17,7 +18,7 @@ def main() -> None:
     pipe_images = [os.path.join(dir_name,"assets/images/pipe.png"),
         os.path.join(dir_name,"assets/images/pipe_upside_down.png")]
     scaling  = 2
-    pipe_speed = 25
+    pipe_speed = 10
     timer = 0
     speed = 2
     score = 0
@@ -27,6 +28,8 @@ def main() -> None:
     #PYGAME INITILIZATIONS
     pygame.display.init()
     pygame.mixer.init()
+
+    #DO NOT CHANGE THE DISPLAY SET MODE
     screen = pygame.display.set_mode((700,700))
     caption = name_your_game()
     if caption is not None:
@@ -50,12 +53,14 @@ def main() -> None:
     while active and not is_game_over:
 
         events = pygame.event.get()
+        key_pressed = False
 
         for event in events:
             active = is_active(event)
-            keys(character,event)
+            key_pressed = keys(character,event)
 
-        player.update()
+        if key_pressed == False:
+            player.update()
 
         new_render = render_pipes(speed, timer, scaling, pipe_images, pipes)
         if new_render != None:
