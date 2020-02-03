@@ -84,6 +84,45 @@ def move_sprite(key: str, sprite_position: list) -> list:
 
     return sprite_position
 
+### STEP FOUR: MAKE PIPES MOVE ACROSS THE SCREEN ###
+def spawn_pipe(pipes: list) -> list:
+    """Time to add some pipes to this game! pipes is a list of 2 pipe images.
+    One being upside down and others is right side up.
+
+    We want to randomly select one of these 2 pipes to spawn. Furthermore, we
+    want to specify the size of each pipe (width, height). We may want to
+    have a long and short pipe version to make your game more difficult.
+
+    Lastly, we need to specify the location for each pipe to spawn. We want the
+    pipe to spawn on the right corner of the screen. The right side up pipes
+    will want to start on the bottom of the screen and the upside down pipe will
+    want to start on the top of the screen.
+
+    I wonder if there is a way to tell the pipe kind from its name? Remember
+    file names include the location in the name!
+
+    Return a list containing the pipe name, a list of the pipes size
+    [width,height] and a list containing the pipes spawn position [x,y].
+    """
+    #Delete the 'pass' above. Write your code below this line
+
+    #Pick a random pipe image
+    pipe = random.choice(pipes)
+
+    #size = (x,y)
+    large = [100,400]
+    small = [100,300]
+    #Pick a random pipe size
+    size = random.choice([large, small])
+
+    #If the pipe is upside down make it start on the bottom of the screen
+    if pipe == "assets/images/pipe_upside_down.png":
+        start_position = [600,0]
+    else:
+        start_position = [600,450]
+
+    return [pipe, size, start_position]
+
 def move_pipe(pipe_position: list, pipe_speed: float) -> list:
     """In a video game such as this one, its common to think the character is
     moving forward. However it is the background that moves!
@@ -99,44 +138,6 @@ def move_pipe(pipe_position: list, pipe_speed: float) -> list:
     #Delete the 'pass' above. Write your code below this line
     pipe_position[0] -= pipe_speed
     return pipe_position
-
-### STEP FOUR: MAKE PIPES MOVE ACROSS THE SCREEN ###
-def spawn_pipe(pipes: list) -> list:
-    """Time to add some pipes to this game! pipes is a list of  2 pipe images.
-    One being upside down and others is right side up.
-
-    We want to randomly select one of these 2 pipes to spawn. Furthermore, we
-    want to specify the size of each pipe (width, height). We may want to
-    have a long and short pipe version to make your game more difficult.
-
-    Lastly, we need to specify the location for each pipe to spawn. Most likey
-    we want the pipe to spawn on the right corner of the screen. The right side
-    up pipes will want to start on the bottom of the screen and the upside down
-    pipe will want to start on the top of the screen.
-
-    I wonder if there is a way to tell the pipe kind from its name? Remember
-    file names include the location in the name!
-
-    Return a list containing the pipe name, a tuple of the pipes size
-    (width,height) and a tuple containing the pipes spawn position (x,y).
-    """
-    #Delete the 'pass' above. Write your code below this line
-
-    #Pick a random pipe image
-    pipe = random.choice(pipes)
-    #size = (x,y)
-    large = [100,400]
-    small = [100,300]
-    #Pick a random pipe size
-    size = random.choice([large, small])
-
-    #If the pipe is upside down make it start on the bottom of the screen
-    if pipe == "assets/images/pipe_upside_down.png":
-        start_position = [600,0]
-    else:
-        start_position = [600,450]
-
-    return [pipe, size, start_position]
 
 ### STEP FIVE: CHECK FOR COLLISIONS ###
 def x_intersection(rect1_left: float, rect1_right: float, rect2_left: float,
