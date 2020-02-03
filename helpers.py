@@ -1,6 +1,7 @@
 import pygame
 from sprites import *
 from learner import *
+#from empty import *
 
 def load_background(image_file: str) -> None:
     """Loads image file in pygame"""
@@ -28,7 +29,7 @@ def keys(character: Player,event: pygame.event) -> None:
             character.update_pos('DOWN')
             return True
     return False
-    
+
 def render_pipes(speed: int, timer: float, scaling: float, image_list: list,
     group: pygame.sprite.Group) -> Enemy:
     """Renders pipe images onto the screen. Pipe objects are created after a set

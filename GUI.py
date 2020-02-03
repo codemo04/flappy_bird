@@ -10,7 +10,7 @@ def main() -> None:
     called in this loop. See if you can see some of the ones you have written!
     """
 
-    #CONSTANTS
+    ###CONSTANTS###
     dir_name = os.path.dirname(__file__)
     is_game_over = False
     active = True
@@ -18,36 +18,42 @@ def main() -> None:
     pipe_images = [os.path.join(dir_name,"assets/images/pipe.png"),
         os.path.join(dir_name,"assets/images/pipe_upside_down.png")]
     scaling  = 2
-    pipe_speed = 10
+    pipe_speed = 5
     timer = 0
     speed = 2
     score = 0
-    game_music_file = os.path.join(dir_name,get_game_audio())
-    game_over_sound = os.path.join(dir_name,get_gameover_audio())
+    #game_music_file = os.path.join(dir_name,get_game_audio())
+    #game_over_sound = os.path.join(dir_name,get_gameover_audio())
 
-    #PYGAME INITILIZATIONS
+    ###PYGAME INITILIZATIONS###
     pygame.display.init()
-    pygame.mixer.init()
+    #pygame.mixer.init()
+    time = pygame.time.Clock()
 
     #DO NOT CHANGE THE DISPLAY SET MODE
     screen = pygame.display.set_mode((700,700))
-    caption = name_your_game()
+
+    ###SET CAPTION FOR GAME###
+    caption = set_name()
     if caption is not None:
         pygame.display.set_caption(caption)
     background_image = get_background()
-    background = load_background(os.path.join(dir_name,background_image))
-    game_over_background = load_background(os.path.join(dir_name,"assets",
-        "images","game-over.jpg"))
-    player = pygame.sprite.Group()
-    pipes = pygame.sprite.Group()
-    time = pygame.time.Clock()
-    pygame.mixer.music.load(game_music_file)
-    pygame.mixer.music.play(-1)
+    gameover_image = get_gameover_background()
 
-    #RENDER CHARACTER
+    ###LOAD BACKGROUND IMAGE AND GAME OVER BACKGROUND###
+    background = load_background(os.path.join(dir_name,background_image))
+    game_over_background = load_background(os.path.join(dir_name,gameover_image))
+
+    PLAYER = pygame.sprite.Group()
+    PIPES = pygame.sprite.Group()
+
+    #pygame.mixer.music.load(game_music_file)
+    #pygame.mixer.music.play(-1)
+
+    ###RENDER CHARACTER###
     character_image = get_character()
     character = Player(os.path.join(dir_name,character_image),(100,100),(0,300))
-    player.add(character)
+    PLAYER.add(character)
 
     #MAIN GAME LOOP
     while active and not is_game_over:
@@ -60,9 +66,9 @@ def main() -> None:
             key_pressed = keys(character,event)
 
         if key_pressed == False:
-            player.update()
+            PLAYER.update()
 
-        new_render = render_pipes(speed, timer, scaling, pipe_images, pipes)
+        new_render = render_pipes(speed, timer, scaling, pipe_images, PIPES)
         if new_render != None:
             pipe_list.append(new_render)
 
@@ -73,23 +79,22 @@ def main() -> None:
 
         timer = update_timer(timer,speed,scaling)
         #Update everything seen on screen
-        pipes.update(pipe_speed)
+        PIPES.update(pipe_speed)
         #Push background image to screen
         screen.blit(background, [0,0])
         text_to_screen(screen, "Score is: " + str(score), (500,0))
         #Draw player image onto screen
-        player.draw(screen)
+        PLAYER.draw(screen)
         #Draw pipe images onto screen
-        pipes.draw(screen)
+        PIPES.draw(screen)
         pygame.display.flip()
         #Update timer to new time
         timer += time.tick()
 
-
     if is_game_over == True:
-        pygame.mixer.music.load(game_over_sound)
-        pygame.mixer.music.play(-1)
-        pipes.remove()
+        #pygame.mixer.music.load(game_over_sound)
+        #pygame.mixer.music.play(-1)
+        PIPES.remove()
         character.kill()
         screen.blit(game_over_background, [0,0])
 

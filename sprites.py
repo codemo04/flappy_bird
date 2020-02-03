@@ -1,6 +1,6 @@
 import pygame
 from learner import *
-
+#from empty import *
 class Player(pygame.sprite.Sprite):
     """Class for the main character which is controlled by the player """
 
@@ -32,12 +32,14 @@ class Player(pygame.sprite.Sprite):
         key is pressed"""
         position = self.get_position()
         new_position = move_sprite(key, position)
+        #self.rotate(20)
         self.rect.x = new_position[0]
         self.rect.y = new_position[1]
 
     def update(self) -> None:
         """Update the sprites position on the screen"""
         new_position = sprite_down(self.get_position())
+        #self.rotate(-20)
         if new_position[1] >= 600:
             new_position[1] = 600
         else:
