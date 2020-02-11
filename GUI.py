@@ -10,27 +10,31 @@ def main() -> None:
     called in this loop. See if you can see some of the ones you have written!
     """
 
-    ###CONSTANTS###
+    ### CONSTANTS ###
+    scaling  = 2
+    pipe_speed = 5
+    timer = 0
+    speed = 2
+    score = 0
+
+    ### SOUNDS ###
+    game_audio = get_game_audio()
+    over_audio = get_gameover_audio()
+
+    ### DIRECTORY NAMES & START STATES ###
     dir_name = os.path.dirname(__file__)
     is_game_over = False
     active = True
     pipe_list = []
     pipe_images = [os.path.join(dir_name,"assets/images/pipe.png"),
         os.path.join(dir_name,"assets/images/pipe_upside_down.png")]
-    scaling  = 2
-    pipe_speed = 5
-    timer = 0
-    speed = 2
-    score = 0
-    game_audio = get_game_audio()
-    over_audio = get_gameover_audio()
 
     if game_audio is not None:
         game_music_file = os.path.join(dir_name,game_audio)
     if over_audio is not None:
         game_over_sound = os.path.join(dir_name,over_audio)
 
-    ###PYGAME INITILIZATIONS###
+    ### PYGAME INITILIZATIONS ###
     pygame.display.init()
     pygame.mixer.init()
     time = pygame.time.Clock()
@@ -38,7 +42,7 @@ def main() -> None:
     #DO NOT CHANGE THE DISPLAY SET MODE
     screen = pygame.display.set_mode((700,700))
 
-    ###SET CAPTION FOR GAME###
+    ### SET CAPTION FOR GAME ###
     caption = set_name()
     if caption is not None:
         pygame.display.set_caption(caption)
@@ -52,16 +56,17 @@ def main() -> None:
     PLAYER = pygame.sprite.Group()
     PIPES = pygame.sprite.Group()
 
+    ### LOAD MAIN GAME SOUNDS ###
     if game_audio is not None:
         pygame.mixer.music.load(game_music_file)
         pygame.mixer.music.play(-1)
 
-    ###RENDER CHARACTER###
+    ### RENDER CHARACTER ###
     character_image = get_character()
     character = Player(os.path.join(dir_name,character_image),(100,100),(0,300))
     PLAYER.add(character)
 
-    #MAIN GAME LOOP
+    ### MAIN GAME LOOP ###
     while active and not is_game_over:
 
         events = pygame.event.get()
@@ -98,10 +103,12 @@ def main() -> None:
         timer += time.tick()
 
     if is_game_over == True:
+        #Play game over sound
         if over_audio is not None:
             pygame.mixer.music.load(game_over_sound)
             pygame.mixer.music.play(-1)
 
+        #Remove game from screen & switch to game over background
         PIPES.remove()
         character.kill()
         screen.blit(game_over_background, [0,0])
