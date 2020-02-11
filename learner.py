@@ -22,7 +22,7 @@ def get_background() -> str:
     #Delete the 'pass' above. Write your code below this line
 
 
-### STEP TWO: LOAD A BACKGROUND IMAGE ###
+### STEP THREE: LOAD A BACKGROUND IMAGE ###
 def get_gameover_background() -> str:
     """ Return a string containing the path to your game over background image.
 
@@ -36,6 +36,7 @@ def get_gameover_background() -> str:
     #Delete the 'pass' above. Write your code below this line
 
 
+### STEP FOUR: LOAD A CHARACTER IMAGE ###
 def get_character() -> str:
     """ Return a string containing the path to your character image.
 
@@ -48,7 +49,7 @@ def get_character() -> str:
     pass
     #Delete the 'pass' above. Write your code below this line
 
-### STEP THREE: MOVE THE SPRITE ###
+### STEP FIVE: MOVE THE SPRITE ###
 def sprite_down(sprite_position: list) -> list:
     """ Return a list of new x and y coordinates for the character sprite. In
     flappy bird the bird is always moving down and its up to the player to move
@@ -89,7 +90,7 @@ def move_sprite(key: str, sprite_position: list) -> list:
 
     jump_amount = 60
 
-### STEP FOUR: MAKE PIPES MOVE ACROSS THE SCREEN ###
+### STEP SIX: MAKE PIPES MOVE ACROSS THE SCREEN ###
 def spawn_pipe(pipes: list) -> list:
     """ Time to add some pipes to this game! pipes is a list of file paths for
     two pipe images. The list looks like this:
@@ -135,7 +136,7 @@ def move_pipe(pipe_position: list, pipe_speed: float) -> list:
     #Delete the 'pass' above. Write your code below this line
 
 
-### STEP FIVE: CHECK FOR COLLISIONS ###
+### STEP SEVEN: CHECK FOR COLLISIONS ###
 def x_intersection(rect1_left: float, rect1_right: float, rect2_left: float,
     rect2_right: float) -> bool:
 
