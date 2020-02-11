@@ -50,8 +50,10 @@ def main() -> None:
     gameover_image = get_gameover_background()
 
     ###LOAD BACKGROUND IMAGE AND GAME OVER BACKGROUND###
-    background = load_background(os.path.join(dir_name,background_image))
-    game_over_background = load_background(os.path.join(dir_name,gameover_image))
+    if background_image is not None:
+        background = load_background(os.path.join(dir_name,background_image))
+    if gameover_image is not None:
+        game_over_background = load_background(os.path.join(dir_name,gameover_image))
 
     PLAYER = pygame.sprite.Group()
     PIPES = pygame.sprite.Group()
@@ -63,8 +65,9 @@ def main() -> None:
 
     ### RENDER CHARACTER ###
     character_image = get_character()
-    character = Player(os.path.join(dir_name,character_image),(100,100),(0,300))
-    PLAYER.add(character)
+    if character_image is not None:
+        character = Player(os.path.join(dir_name,character_image),(100,100),(0,300))
+        PLAYER.add(character)
 
     ### MAIN GAME LOOP ###
     while active and not is_game_over:
@@ -74,12 +77,14 @@ def main() -> None:
 
         for event in events:
             active = is_active(event)
-            key_pressed = keys(character,event)
+            if character_image is not None:
+                key_pressed = keys(character,event)
 
         if key_pressed == False:
             PLAYER.update()
 
         new_render = render_pipes(speed, timer, scaling, pipe_images, PIPES)
+
         if new_render != None:
             pipe_list.append(new_render)
 
@@ -92,13 +97,15 @@ def main() -> None:
         #Update everything seen on screen
         PIPES.update(pipe_speed)
         #Push background image to screen
-        screen.blit(background, [0,0])
+        if background_image is not None:
+            screen.blit(background, [0,0])
         #Draw player image onto screen
         PLAYER.draw(screen)
         #Draw pipe images onto screen
         PIPES.draw(screen)
         #Draw score on screen
-        text_to_screen(screen, str(score), (700/2,50),(255,255,255))
+        if score != None:
+            text_to_screen(screen, str(score), (700/2,50),(255,255,255))
         pygame.display.flip()
         #Update timer to new time
         timer += time.tick()
@@ -119,9 +126,9 @@ def main() -> None:
 
             for event in events:
                 active = is_active(event)
-
-            text_to_screen(screen, "FINAL SCORE " + str(score),
-                (200,600),(255,255,255),50)
+            if score != None:
+                text_to_screen(screen, "FINAL SCORE " + str(score),
+                    (200,600),(255,255,255),50)
             pygame.display.flip()
 
     else:

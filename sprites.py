@@ -32,18 +32,20 @@ class Player(pygame.sprite.Sprite):
         key is pressed"""
         position = self.get_position()
         new_position = move_sprite(key, position)
-        #self.rotate(20)
-        self.rect.x = new_position[0]
-        self.rect.y = new_position[1]
+
+        if new_position is not None:
+            self.rect.x = new_position[0]
+            self.rect.y = new_position[1]
 
     def update(self) -> None:
         """Update the sprites position on the screen"""
         new_position = sprite_down(self.get_position())
-        #self.rotate(-20)
-        if new_position[1] >= 600:
-            new_position[1] = 600
-        else:
-            self.rect.y = new_position[1]
+
+        if new_position is not None:
+            if new_position[1] >= 600:
+                new_position[1] = 600
+            else:
+                self.rect.y = new_position[1]
 
 class Enemy(pygame.sprite.Sprite):
     """Class for the enemy character or object which is controlled by the
@@ -76,4 +78,6 @@ class Enemy(pygame.sprite.Sprite):
         across the screen"""
 
         new_position = move_pipe(self.get_position(),pipe_speed)
-        self.rect.x = new_position[0]
+
+        if new_position is not None:
+            self.rect.x = new_position[0]
