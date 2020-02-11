@@ -171,7 +171,7 @@ def y_interection(rect1_top: float, rect1_bottom: float, rect2_top: float,
     pass
 
 
-### STEP SIX: KEEP SCORE ###
+### ADD ON: KEEP SCORE ###
 def update_score(pipe_list: list, score: int) -> int:
     """Let's add a scoreboard to our flappy bird game! We need to return an
     updated score based on how many pipes our character has passed.

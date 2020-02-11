@@ -6,7 +6,6 @@ def set_name() -> str:
     """ Return a string containing the name for your game """
 
     #Delete the 'pass' above. Write your code below this line
-
     name = "Floopy Bird"
     return(name)
 
@@ -209,7 +208,7 @@ def y_interection(rect1_top: float, rect1_bottom: float, rect2_top: float,
     else:
         return False
 
-### STEP SIX: KEEP SCORE ###
+### ADD ON: KEEPING SCORE ###
 def update_score(pipe_list: list, score: int) -> int:
     """Let's add a scoreboard to our flappy bird game! We need to return an
     updated score based on how many pipes our character has passed.
