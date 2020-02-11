@@ -222,13 +222,14 @@ def get_game_audio() -> str:
     """ Return a string with the name and location of a song you would like to
     play during your game!"""
     #Delete the 'pass' above. Write your code below this line
-    music_file = "assets/sounds/Nitro Fun.mp3"
-    return music_file
+    pass
+    #music_file = "assets/sounds/Nitro Fun.mp3"
+    #return music_file
 
 def get_gameover_audio() -> str:
     """Return a strong with the name and location of a song or sound clip you
     would like to play the game over screen is displayed"""
-
+    pass
     #Delete the 'pass' above. Write your code below this line
-    music_file = "assets/sounds/game over.mp3"
-    return music_file
+    #music_file = "assets/sounds/game over.mp3"
+    #return music_file

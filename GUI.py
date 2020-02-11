@@ -22,12 +22,17 @@ def main() -> None:
     timer = 0
     speed = 2
     score = 0
-    #game_music_file = os.path.join(dir_name,get_game_audio())
-    #game_over_sound = os.path.join(dir_name,get_gameover_audio())
+    game_audio = get_game_audio()
+    over_audio = get_gameover_audio()
+
+    if game_audio is not None:
+        game_music_file = os.path.join(dir_name,game_audio)
+    if over_audio is not None:
+        game_over_sound = os.path.join(dir_name,over_audio)
 
     ###PYGAME INITILIZATIONS###
     pygame.display.init()
-    #pygame.mixer.init()
+    pygame.mixer.init()
     time = pygame.time.Clock()
 
     #DO NOT CHANGE THE DISPLAY SET MODE
@@ -47,8 +52,9 @@ def main() -> None:
     PLAYER = pygame.sprite.Group()
     PIPES = pygame.sprite.Group()
 
-    #pygame.mixer.music.load(game_music_file)
-    #pygame.mixer.music.play(-1)
+    if game_audio is not None:
+        pygame.mixer.music.load(game_music_file)
+        pygame.mixer.music.play(-1)
 
     ###RENDER CHARACTER###
     character_image = get_character()
@@ -92,8 +98,10 @@ def main() -> None:
         timer += time.tick()
 
     if is_game_over == True:
-        #pygame.mixer.music.load(game_over_sound)
-        #pygame.mixer.music.play(-1)
+        if over_audio is not None:
+            pygame.mixer.music.load(game_over_sound)
+            pygame.mixer.music.play(-1)
+
         PIPES.remove()
         character.kill()
         screen.blit(game_over_background, [0,0])
