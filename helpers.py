@@ -52,7 +52,6 @@ def text_to_screen(screen: pygame.display, text: str, position: tuple,
     pygame.font.init()
     font = pygame.font.Font("./assets/fonts/ARCADECLASSIC.TTF", size)
     text = str(text)
-    #font = pygame.font.SysFont('Arial', size)
     text = font.render(text, True, color)
     screen.blit(text, (position[0], position[1]))
     pygame.font.quit()
@@ -96,6 +95,8 @@ def change_score(pipe_list: list, score: int, speed: int,
 
     if updated_score is not None:
         if updated_score > score:
-            pipe_speed = change_level(score,pipe_speed)
+            pipes= change_level(score,pipe_speed)
+            if pipes != None:
+                pipe_speed = pipes
 
     return (updated_score,pipe_speed)
