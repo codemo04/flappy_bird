@@ -11,10 +11,10 @@ def main() -> None:
     """
 
     ### CONSTANTS ###
-    scaling  = 2
-    pipe_speed = 5
+    scaling  = 3
+    pipe_speed = 10
     timer = 0
-    speed = 2
+    speed = 1
     score = 0
 
     ### SOUNDS ###
@@ -93,11 +93,12 @@ def main() -> None:
         PIPES.update(pipe_speed)
         #Push background image to screen
         screen.blit(background, [0,0])
-        text_to_screen(screen, "Score is: " + str(score), (500,0))
         #Draw player image onto screen
         PLAYER.draw(screen)
         #Draw pipe images onto screen
         PIPES.draw(screen)
+        #Draw score on screen
+        text_to_screen(screen, str(score), (700/2,50),(255,255,255))
         pygame.display.flip()
         #Update timer to new time
         timer += time.tick()
@@ -119,8 +120,8 @@ def main() -> None:
             for event in events:
                 active = is_active(event)
 
-            text_to_screen(screen, "Final Score is: " + str(score),
-                (230,600),(255,255,255))
+            text_to_screen(screen, "FINAL SCORE " + str(score),
+                (200,600),(255,255,255),50)
             pygame.display.flip()
 
     else:

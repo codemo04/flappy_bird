@@ -62,7 +62,7 @@ def sprite_down(sprite_position: list) -> list:
     if sprite_position[1] >= 600:
         sprite[1] = 600
     else:
-        sprite_position[1] = sprite_position[1] + 3
+        sprite_position[1] = sprite_position[1] + 10
 
     return sprite_position
 

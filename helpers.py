@@ -38,22 +38,24 @@ def render_pipes(speed: int, timer: float, scaling: float, image_list: list,
 
     if timer > scaling * (1/speed) * 1000:
         characteristics = spawn_pipe(image_list)
+
         if characteristics is not None:
             pipe = Enemy(characteristics[0],characteristics[1], characteristics[2])
             group.add(pipe)
             return pipe
 
 def text_to_screen(screen: pygame.display, text: str, position: tuple,
-    color=(0,0,0)) -> None:
+    color=(0,0,0), size=100) -> None:
     """Renders text to a screen objects in a specified color and position.
-    Default font color is black"""
+    Default font color is black and default size is 100px"""
 
-    size = 50
     pygame.font.init()
+    font = pygame.font.Font("./assets/fonts/ARCADECLASSIC.TTF", size)
     text = str(text)
-    font = pygame.font.SysFont('Arial', size)
+    #font = pygame.font.SysFont('Arial', size)
     text = font.render(text, True, color)
     screen.blit(text, (position[0], position[1]))
+    pygame.font.quit()
 
 def update_timer(timer: float, speed: int, scaling: float) -> float:
     """Reset timer to 0 after a specified number of milliseconds has passed"""
