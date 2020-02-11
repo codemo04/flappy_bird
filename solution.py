@@ -256,7 +256,7 @@ def update_score(pipe_list: list, score: int) -> int:
     #
     # return score
 
-### ADD ON: MAKE THE GAME GET FASTER ###
+### ADD ON: MAKE THE GAME FASTER ###
 def change_level(score: int, pipe_speed: float) -> float:
     """We want our game to get harder the longer a player plays. A cool way to
     do that is make our game get faster! Increase pipe_speed based on score.
