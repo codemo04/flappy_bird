@@ -116,6 +116,7 @@ def spawn_pipe(pipes: list) -> list:
 
     large = [100,400]
     small = [100,300]
+    possible_sizes = [large,small]
 
 
 def move_pipe(pipe_position: list, pipe_speed: float) -> list:

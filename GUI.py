@@ -69,7 +69,10 @@ def main() -> None:
         character = Player(os.path.join(dir_name,character_image),(100,100),(0,300))
         PLAYER.add(character)
 
+    ######################
     ### MAIN GAME LOOP ###
+    ######################
+    
     while active and not is_game_over:
 
         events = pygame.event.get()
