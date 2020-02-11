@@ -1,6 +1,6 @@
 import pygame
 from sprites import *
-from learner import *
+from solution import *
 from helpers import *
 import os
 
