@@ -49,7 +49,7 @@ def get_character() -> str:
     pass
     #Delete the 'pass' above. Write your code below this line
 
-### STEP FIVE: MOVE THE SPRITE ###
+### STEP FIVE: MOVE THE SPRITE DOWN###
 def sprite_down(sprite_position: list) -> list:
     """ Return a list of new x and y coordinates for the character sprite. In
     flappy bird the bird is always moving down and its up to the player to move
@@ -69,7 +69,7 @@ def sprite_down(sprite_position: list) -> list:
 
     fall_amount = 10
 
-
+### STEP SIX: MOVE THE SPRITE UP###
 def move_sprite(key: str, sprite_position: list) -> list:
     """ Return a list of new x and y coordinates for the character sprite based
     on which key is pressed. Let's focus on making the bird travel up if the up
@@ -90,7 +90,7 @@ def move_sprite(key: str, sprite_position: list) -> list:
 
     jump_amount = 60
 
-### STEP SIX: MAKE PIPES MOVE ACROSS THE SCREEN ###
+### STEP SEVEN: SPAWN A PIPE###
 def spawn_pipe(pipes: list) -> list:
     """ Time to add some pipes to this game! pipes is a list of file paths for
     two pipe images. The list looks like this:
@@ -118,7 +118,7 @@ def spawn_pipe(pipes: list) -> list:
     small = [100,300]
     possible_sizes = [large,small]
 
-
+### STEP EIGHT: MOVE THE PIPES###
 def move_pipe(pipe_position: list, pipe_speed: float) -> list:
     """In a video game such as this one, its common to think the character is
     moving forward. However it is the background that moves!
@@ -137,7 +137,7 @@ def move_pipe(pipe_position: list, pipe_speed: float) -> list:
     #Delete the 'pass' above. Write your code below this line
 
 
-### STEP SEVEN: CHECK FOR COLLISIONS ###
+### STEP NINE: DETECT COLLISIONS ###
 def x_intersection(rect1_left: float, rect1_right: float, rect2_left: float,
     rect2_right: float) -> bool:
 

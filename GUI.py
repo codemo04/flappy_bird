@@ -72,7 +72,7 @@ def main() -> None:
     ######################
     ### MAIN GAME LOOP ###
     ######################
-    
+
     while active and not is_game_over:
 
         events = pygame.event.get()
