@@ -1,6 +1,6 @@
 import pygame
 from sprites import *
-from solution import *
+from learner import *
 from helpers import *
 import os
 
@@ -136,6 +136,3 @@ def main() -> None:
 
     else:
         pygame.quit()
-
-if __name__ == '__main__':
-    main()

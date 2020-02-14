@@ -1,5 +1,6 @@
 import pygame
 import random
+from GUI import *
 
 ### STEP ONE: RENAME YOUR GAME ###
 def set_name() -> str:
@@ -220,3 +221,7 @@ def get_gameover_audio() -> str:
 
     pass
     #Delete the 'pass' above. Write your code below this line
+
+### DO NOT MODIFY THE LINE BELOW ###
+if __name__ == "__main__":
+    main()

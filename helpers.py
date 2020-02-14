@@ -1,6 +1,6 @@
 import pygame
 from sprites import *
-from solution import *
+from learner import *
 #from empty import *
 
 def load_background(image_file: str) -> None:
