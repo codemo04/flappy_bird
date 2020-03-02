@@ -278,3 +278,7 @@ def get_gameover_audio() -> str:
 
     music_file = "assets/sounds/game over.mp3"
     return music_file
+
+### DO NOT MODIFY THE LINE BELOW ###
+if __name__ == "__main__":
+    main()

@@ -135,6 +135,3 @@ def main() -> None:
 
     else:
         pygame.quit()
-
-if __name__ == '__main__':
-    main()
