@@ -12,7 +12,7 @@ def main() -> None:
 
     ### CONSTANTS ###
     scaling  = 3
-    pipe_speed = 10
+    pipe_speed = 7
     timer = 0
     speed = 1
     score = 0
@@ -77,13 +77,12 @@ def main() -> None:
 
         events = pygame.event.get()
         key_pressed = False
-
         for event in events:
             active = is_active(event)
             if character_image is not None:
                 key_pressed = keys(character,event)
 
-        if key_pressed == False:
+        if key_pressed == False and timer % 4 == 0:
             PLAYER.update()
 
         new_render = render_pipes(speed, timer, scaling, pipe_images, PIPES)
@@ -136,3 +135,6 @@ def main() -> None:
 
     else:
         pygame.quit()
+
+if __name__ == '__main__':
+    main()

@@ -1,7 +1,6 @@
 import pygame
 from sprites import *
 from learner import *
-#from empty import *
 
 def load_background(image_file: str) -> None:
     """Loads image file in pygame"""
@@ -28,6 +27,15 @@ def keys(character: Player,event: pygame.event) -> None:
         elif event.key == pygame.K_DOWN:
             character.update_pos('DOWN')
             return True
+
+        elif event.key == pygame.K_LEFT:
+            character.update_pos('LEFT')
+            return True
+
+        elif event.key == pygame.K_RIGHT:
+            character.update_pos('RIGHT')
+            return True
+
     return False
 
 def render_pipes(speed: int, timer: float, scaling: float, image_list: list,

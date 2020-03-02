@@ -70,7 +70,6 @@ def sprite_down(sprite_position: list) -> list:
     HINT: If we need the sprite to move down, do we need to do anything with
     the x coordinate? """
 
-    pass
     #Delete the 'pass' above. Write your code below this line
 
     fall_amount = 10
@@ -103,7 +102,6 @@ def move_sprite(key: str, sprite_position: list) -> list:
     #Delete the 'pass' above. Write your code below this line
 
     jump_amount = 60
-    #Delete the 'pass' above. Write your code below this line
 
     if key == 'UP' and sprite_position[1] >= 0:
         sprite_position[1] -= jump_amount
@@ -134,7 +132,7 @@ def spawn_pipe(pipes: list) -> list:
 
     #Delete the 'pass' above. Write your code below this line
     #
-    # size = (x,y)
+    # size = [x,y]
     large = [100,400]
     small = [100,300]
     possible_sizes = [large,small]
