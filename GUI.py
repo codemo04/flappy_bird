@@ -11,9 +11,10 @@ def main() -> None:
     """
 
     ### CONSTANTS ###
-    scaling  = 3
+    scaling = 1
     pipe_speed = 7
     timer = 0
+    key_timer = 0
     speed = 1
     score = 0
 
@@ -26,8 +27,8 @@ def main() -> None:
     is_game_over = False
     active = True
     pipe_list = []
-    pipe_images = [os.path.join(dir_name,"assets/images/pipe.png"),
-        os.path.join(dir_name,"assets/images/pipe_upside_down.png")]
+    pipe_images = ["assets/images/pipe.png",
+                   "assets/images/pipe_upside_down.png"]
 
     if game_audio is not None:
         game_music_file = os.path.join(dir_name,game_audio)
@@ -53,7 +54,8 @@ def main() -> None:
     if background_image is not None:
         background = load_background(os.path.join(dir_name,background_image))
     if gameover_image is not None:
-        game_over_background = load_background(os.path.join(dir_name,gameover_image))
+        game_over_background = load_background(os.path.join(dir_name,
+                                                            gameover_image))
 
     PLAYER = pygame.sprite.Group()
     PIPES = pygame.sprite.Group()
@@ -66,7 +68,8 @@ def main() -> None:
     ### RENDER CHARACTER ###
     character_image = get_character()
     if character_image is not None:
-        character = Player(os.path.join(dir_name,character_image),(100,100),(0,300))
+        character = Player(os.path.join(dir_name,character_image),(100,100),
+                           (0,300))
         PLAYER.add(character)
 
     ######################
@@ -80,57 +83,60 @@ def main() -> None:
         for event in events:
             active = is_active(event)
             if character_image is not None:
-                key_pressed = keys(character,event)
+                key_pressed = keys(character, event)
 
-        if key_pressed == False and timer % 4 == 0:
+        if key_pressed is False and key_timer % 5 == 0:
             PLAYER.update()
+            key_timer += 1
+        else:
+            key_timer += 1
 
         new_render = render_pipes(speed, timer, scaling, pipe_images, PIPES)
 
-        if new_render != None:
+        if new_render is not None:
             pipe_list.append(new_render)
 
-        score, pipe_speed = change_score(pipe_list,score,speed,pipe_speed)
+        score, pipe_speed = change_score(pipe_list, score, speed, pipe_speed)
 
         if len(pipe_list) > 0:
             is_game_over = detect_collision(pipe_list, character)
 
         timer = update_timer(timer,speed,scaling)
-        #Update everything seen on screen
+        # Update everything seen on screen
         PIPES.update(pipe_speed)
-        #Push background image to screen
+        # Push background image to screen
         if background_image is not None:
             screen.blit(background, [0,0])
-        #Draw player image onto screen
+        # Draw player image onto screen
         PLAYER.draw(screen)
-        #Draw pipe images onto screen
+        # Draw pipe images onto screen
         PIPES.draw(screen)
-        #Draw score on screen
-        if score != None:
+        # Draw score on screen
+        if score is not None:
             text_to_screen(screen, str(score), (700/2,50),(255,255,255))
         pygame.display.flip()
-        #Update timer to new time
+        # Update timer to new time
         timer += time.tick()
 
-    if is_game_over == True:
-        #Play game over sound
+    if is_game_over:
+        # Play game over sound
         if over_audio is not None:
             pygame.mixer.music.load(game_over_sound)
             pygame.mixer.music.play(-1)
 
-        #Remove game from screen & switch to game over background
+        # Remove game from screen & switch to game over background
         PIPES.remove()
         character.kill()
-        screen.blit(game_over_background, [0,0])
+        screen.blit(game_over_background, [0, 0])
 
         while active:
             events = pygame.event.get()
 
             for event in events:
                 active = is_active(event)
-            if score != None:
+            if score is not None:
                 text_to_screen(screen, "FINAL SCORE " + str(score),
-                    (200,600),(255,255,255),50)
+                    (200, 600), (255, 255, 255), 50)
             pygame.display.flip()
 
     else:

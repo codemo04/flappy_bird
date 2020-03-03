@@ -2,10 +2,12 @@ import pygame
 from sprites import *
 from learner import *
 
+
 def load_background(image_file: str) -> None:
     """Loads image file in pygame"""
     image = pygame.image.load(image_file)
     return image
+
 
 def is_active(event: pygame.event) -> bool:
     """Detects if an event type is quit. Returns True or False based on whether
@@ -15,7 +17,8 @@ def is_active(event: pygame.event) -> bool:
     else:
         return True
 
-def keys(character: Player,event: pygame.event) -> None:
+
+def keys(character: Player,event: pygame.event) -> bool:
     """Updates the position of sprite on screen depending on whether the UP or
     DOWN arrow key is pressed """
 
@@ -38,6 +41,7 @@ def keys(character: Player,event: pygame.event) -> None:
 
     return False
 
+
 def render_pipes(speed: int, timer: float, scaling: float, image_list: list,
     group: pygame.sprite.Group) -> Enemy:
     """Renders pipe images onto the screen. Pipe objects are created after a set
@@ -52,8 +56,9 @@ def render_pipes(speed: int, timer: float, scaling: float, image_list: list,
             group.add(pipe)
             return pipe
 
+
 def text_to_screen(screen: pygame.display, text: str, position: tuple,
-    color=(0,0,0), size=100) -> None:
+    color=(0, 0, 0), size=100) -> None:
     """Renders text to a screen objects in a specified color and position.
     Default font color is black and default size is 100px"""
 
@@ -64,12 +69,14 @@ def text_to_screen(screen: pygame.display, text: str, position: tuple,
     screen.blit(text, (position[0], position[1]))
     pygame.font.quit()
 
+
 def update_timer(timer: float, speed: int, scaling: float) -> float:
     """Reset timer to 0 after a specified number of milliseconds has passed"""
-    if timer >  scaling * (1/speed) * 1000:
+    if timer > scaling * (1/speed) * 1000:
         return 0
     else:
         return timer
+
 
 def detect_collision(pipe_list: list, character: Player) -> bool:
     """Return True or False based on whether the first pipe object in the list
@@ -93,18 +100,19 @@ def detect_collision(pipe_list: list, character: Player) -> bool:
     else:
         return False
 
+
 def change_score(pipe_list: list, score: int, speed: int,
     pipe_speed: int) -> tuple:
     """Update score depending on the number of pipes the bird has travelled
-    past. Everytime the score is updated, also update the level
+    past. Every time the score is updated, also update the level
     """
 
     updated_score = update_score(pipe_list,score)
 
     if updated_score is not None:
         if updated_score > score:
-            pipes= change_level(score,pipe_speed)
-            if pipes != None:
+            pipes = change_level(score, pipe_speed)
+            if pipes is not None:
                 pipe_speed = pipes
 
-    return (updated_score,pipe_speed)
+    return (updated_score, pipe_speed)
