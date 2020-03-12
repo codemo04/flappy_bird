@@ -1,10 +1,11 @@
 import pygame
-from learner import *
+from typing import Callable
 
 class Player(pygame.sprite.Sprite):
     """Class for the main character which is controlled by the player """
 
-    def __init__(self, image: str, size: int, start: tuple) -> None:
+    def __init__(self, image: str, size: int, start: tuple,
+                 move_sprite: Callable, sprite_down: Callable) -> None:
         """Constructor for player sprite. Inherits from pygame's Sprite
         class"""
         super().__init__()
@@ -13,6 +14,9 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x  = start[0]
         self.rect.y = start[1]
+
+        self.move_sprite = move_sprite
+        self.sprite_down = sprite_down
 
     def get_rect(self) -> list:
         """Returns the coordinates for the rectangle bounding box around
@@ -32,7 +36,7 @@ class Player(pygame.sprite.Sprite):
         """Update the position of the sprite based on whether the up or down
         key is pressed"""
         position = self.get_position()
-        new_position = move_sprite(key, position)
+        new_position = self.move_sprite(key, position)
 
         if new_position is not None:
             self.rect.x = new_position[0]
@@ -40,7 +44,7 @@ class Player(pygame.sprite.Sprite):
 
     def update(self) -> None:
         """Update the sprite's position on the screen"""
-        new_position = sprite_down(self.get_position())
+        new_position = self.sprite_down(self.get_position())
 
         if new_position is not None:
             if new_position[1] >= 600:
@@ -52,7 +56,7 @@ class Enemy(pygame.sprite.Sprite):
     """Class for the enemy character or object which is controlled by the
     player"""
 
-    def __init__(self, image: str, size: int, start: int):
+    def __init__(self, image: str, size: int, start: int, move_pipe: Callable):
         """Constructor for player sprite. Inherits from pygame's Sprite
         class"""
 
@@ -62,6 +66,8 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x  = start[0]
         self.rect.y = start[1]
+
+        self.move_pipe = move_pipe
 
     def get_rect(self) -> list:
         """Returns the coordinates for the rectangle bounding box around the
@@ -79,7 +85,7 @@ class Enemy(pygame.sprite.Sprite):
         """Updates the sprite's position on the screen. Makes the enemy scroll
         across the screen"""
 
-        new_position = move_pipe(self.get_position(),pipe_speed)
+        new_position = self.move_pipe(self.get_position(),pipe_speed)
 
         if new_position is not None:
             self.rect.x = new_position[0]

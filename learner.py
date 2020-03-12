@@ -229,4 +229,4 @@ def get_gameover_audio() -> str:
 
 ### DO NOT MODIFY THE LINE BELOW ###
 if __name__ == "__main__":
-    main()
+    main(globals())

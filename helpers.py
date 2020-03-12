@@ -1,6 +1,6 @@
 import pygame
 from sprites import *
-from learner import *
+from typing import Callable
 
 
 def load_background(image_file: str) -> None:
@@ -42,19 +42,25 @@ def keys(character: Player,event: pygame.event) -> bool:
     return False
 
 
-def render_pipes(speed: int, timer: float, scaling: float, image_list: list,
-    group: pygame.sprite.Group) -> Enemy:
-    """Renders pipe images onto the screen. Pipe objects are created after a set
-    number of milliseconds. The newly formed pipe is then added to the pipes
-    group"""
+def init_render_pipes(spawn_pipe: Callable, move_pipe: Callable) -> Callable:
+    """ Consumes user-defined `spawn_pipe` and `move_pipe` functions to create
+    a `render_pipes` function that incorporates the user-defined functions """
 
-    if timer > scaling * (1/speed) * 1000:
-        characteristics = spawn_pipe(image_list)
+    def render_pipes(speed: int, timer: float, scaling: float,
+                     image_list: list, group: pygame.sprite.Group) -> Enemy:
+        """Renders pipe images onto the screen. Pipe objects are created after
+        a set number of milliseconds. The newly formed pipe is then added to
+        the pipes group"""
 
-        if characteristics is not None:
-            pipe = Enemy(characteristics[0],characteristics[1], characteristics[2])
-            group.add(pipe)
-            return pipe
+        if timer > scaling * (1/speed) * 1000:
+            characteristics = spawn_pipe(image_list)
+
+            if characteristics is not None:
+                pipe = Enemy(characteristics[0],characteristics[1], characteristics[2], move_pipe)
+                group.add(pipe)
+                return pipe
+
+    return render_pipes
 
 
 def text_to_screen(screen: pygame.display, text: str, position: tuple,
@@ -78,41 +84,57 @@ def update_timer(timer: float, speed: int, scaling: float) -> float:
         return timer
 
 
-def detect_collision(pipe_list: list, character: Player) -> bool:
-    """Return True or False based on whether the first pipe object in the list
-    of pipes is occupying the same space as the character on screen"""
+def init_detect_collision(x_intersection: Callable,
+                          y_intersection: Callable) -> Callable:
+    """ Consumes user-defined `x_intersection` and `y_intersection` functions to
+    create a `detect_collision` function that incorporates the user-defined
+    functions """
 
-    first_pipe = pipe_list[0]
-    (left_p, top_p, width_p, height_p) = first_pipe.get_rect()
-    (left_c, top_c, width_c, height_c) = character.get_rect()
+    def detect_collision(pipe_list: list, character: Player) -> bool:
+        """Return True or False based on whether the first pipe object in the list
+        of pipes is occupying the same space as the character on screen"""
 
-    #Reformatting widths to corner coordinates
-    width_p += left_p
-    width_c += left_c
-    height_p += top_p
-    height_c += top_c
+        first_pipe = pipe_list[0]
+        (left_p, top_p, width_p, height_p) = first_pipe.get_rect()
+        (left_c, top_c, width_c, height_c) = character.get_rect()
 
-    x_intersect = x_intersection(left_p, width_p, left_c, width_c)
-    y_interect = y_interection(top_p, height_p, top_c, height_c)
+        #Reformatting widths to corner coordinates
+        width_p += left_p
+        width_c += left_c
+        height_p += top_p
+        height_c += top_c
 
-    if x_intersect and y_interect:
-        return True
-    else:
-        return False
+        x_intersect = x_intersection(left_p, width_p, left_c, width_c)
+        y_interect = y_intersection(top_p, height_p, top_c, height_c)
+
+        if x_intersect and y_interect:
+            return True
+        else:
+            return False
+
+    return detect_collision
 
 
-def change_score(pipe_list: list, score: int, speed: int,
-    pipe_speed: int) -> tuple:
-    """Update score depending on the number of pipes the bird has travelled
-    past. Every time the score is updated, also update the level
-    """
+def init_change_score(update_score: Callable,
+                      change_level: Callable) -> Callable:
+    """ Consumes user-defined `update_score` and `change_level` functions to
+    create a `change_score` function that incorporates the user-defined
+    functions """
 
-    updated_score = update_score(pipe_list,score)
+    def change_score(pipe_list: list, score: int, speed: int,
+        pipe_speed: int) -> tuple:
+        """Update score depending on the number of pipes the bird has travelled
+        past. Every time the score is updated, also update the level
+        """
 
-    if updated_score is not None:
-        if updated_score > score:
-            pipes = change_level(score, pipe_speed)
-            if pipes is not None:
-                pipe_speed = pipes
+        updated_score = update_score(pipe_list,score)
 
-    return (updated_score, pipe_speed)
+        if updated_score is not None:
+            if updated_score > score:
+                pipes = change_level(score, pipe_speed)
+                if pipes is not None:
+                    pipe_speed = pipes
+
+        return (updated_score, pipe_speed)
+
+    return change_score

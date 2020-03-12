@@ -1,14 +1,20 @@
 import pygame
 from sprites import *
-from learner import *
 from helpers import *
 import os
 
-def main() -> None:
+def main(user_funcs: dict) -> None:
     """This is the main loop responsible for rendering a pygame window. This
     loop also carries out all major game logic. Many learner functions are
     called in this loop. See if you can see some of the ones you have written!
     """
+    # This is a hack to avoid changing as much code as possible. It should be
+    # refactored if it gets put into use.
+    globals().update(user_funcs)
+
+    change_score = init_change_score(update_score, change_level)
+    detect_collision = init_detect_collision(x_intersection, y_interection)
+    render_pipes = init_render_pipes(spawn_pipe, move_pipe)
 
     ### CONSTANTS ###
     scaling = 1
@@ -69,7 +75,7 @@ def main() -> None:
     character_image = get_character()
     if character_image is not None:
         character = Player(os.path.join(dir_name,character_image),(100,100),
-                           (0,300))
+                           (0,300), move_sprite, sprite_down)
         PLAYER.add(character)
 
     ######################
